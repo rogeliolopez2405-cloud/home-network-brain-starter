@@ -1,0 +1,47 @@
+name: debian13-vm-acceptance
+# M1 acceptance: clean Debian 13 x86_64 VM, install from a `git archive`
+# export, use the hub, reboot, verify, outage, restore, re-install.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  vm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable KVM for the runner user
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm || true
+          ls -l /dev/kvm || echo "no /dev/kvm: software emulation"
+      - name: Tools
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends qemu-system-x86 qemu-utils cloud-image-utils
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Browser for the Home Hub phase (Playwright drives the runner's Chrome)
+        run: python3 -m pip install "playwright>=1.47" && google-chrome --version
+      - name: Clean export (git archive — exactly what is committed)
+        run: git archive --format=tar.gz -o "$RUNNER_TEMP/starter.tar.gz" HEAD && ls -l "$RUNNER_TEMP/starter.tar.gz"
+      - name: Debian 13 VM acceptance
+        run: WORK="$RUNNER_TEMP/vm" bash tests/vm/run-debian13-acceptance.sh "$RUNNER_TEMP/starter.tar.gz"
+      - name: Summary
+        if: always()
+        run: cat "$RUNNER_TEMP/vm/summary.md" >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "no summary" >> "$GITHUB_STEP_SUMMARY"
+      - name: Evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian13-vm-evidence
+          # Session cookies and the throwaway SSH key are never uploaded.
+          path: |
+            ${{ runner.temp }}/vm/*.log
+            ${{ runner.temp }}/vm/vm-os.txt
+            ${{ runner.temp }}/vm/*.md
+            ${{ runner.temp }}/vm/results.jsonl
+            ${{ runner.temp }}/vm/hub-phone.png
+          if-no-files-found: warn

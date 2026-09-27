@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Copy the vault key to removable media for disaster recovery:
+#     sudo bin/export-key /media/usb/hnb-vault.key
+# Never prints the key. Keep the copy offline and separate from backups.
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+[ $# -eq 1 ] || { echo "usage: sudo $0 <destination file>" >&2; exit 2; }
+[ ! -e "$1" ] || { echo "$1 already exists; refusing to overwrite" >&2; exit 1; }
+install -m 0600 "$HNB_ROOT/secrets/vault.key" "$1"
+echo "Vault key copied to $1 (mode 0600). Store it offline, apart from your backups."

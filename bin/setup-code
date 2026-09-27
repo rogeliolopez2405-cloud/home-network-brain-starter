@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Show the one-time setup code used to create the first owner. Only exists
+# until an owner is created; the hub deletes it after.
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+f="$HNB_ROOT/data/setup-code"
+if [ -f "$f" ]; then cat "$f"
+elif [ -e "$HNB_ROOT/data/hnb.db" ]; then echo "Setup is closed: this hub already has an owner." >&2; exit 1
+else echo "The hub hasn't finished starting; try again in a moment." >&2; exit 1; fi

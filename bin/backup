@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Create and verify a backup in /var/lib/hnb/backups. The vault key is NOT
+# included (see BACKUP_RESTORE.md). Safe while the hub is running.
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+hnb_cli backup

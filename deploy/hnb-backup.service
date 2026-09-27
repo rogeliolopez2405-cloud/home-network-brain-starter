@@ -1,0 +1,8 @@
+[Unit]
+Description=Home Network BRAIN Starter nightly backup
+Requires=docker.service
+After=docker.service hnb.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/hnb/bin/backup

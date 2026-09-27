@@ -1,0 +1,80 @@
+{
+  "_about": "Fictional demo house shaped like an Alexa-heavy home. No real person, address, account, device id or network detail. Room names mimic Alexa groups so the wizard's room suggestions can be exercised.",
+  "house": { "name": "Demo Home", "timezone": "America/Los_Angeles" },
+  "devices": [
+    { "id": "demo-lr-ceiling", "name": "Living Room Ceiling Lights", "kind": "LIGHT", "room": "Living Room",
+      "manufacturer": "Demo Lighting Co.", "model": "Smart Dimmer",
+      "capabilities": [
+        { "type": "POWER" }, { "type": "BRIGHTNESS" },
+        { "type": "COLOR_TEMPERATURE", "options": { "min": 2700, "max": 5000 } } ],
+      "state": { "POWER": true, "BRIGHTNESS": 70, "COLOR_TEMPERATURE": 3000 } },
+
+    { "id": "demo-lr-lamp", "name": "Lamp", "kind": "LIGHT", "room": "Living Room",
+      "manufacturer": "Demo Bulbs", "model": "Color Bulb",
+      "capabilities": [ { "type": "POWER" }, { "type": "BRIGHTNESS" }, { "type": "COLOR" } ],
+      "state": { "POWER": false, "BRIGHTNESS": 40, "COLOR": { "h": 32, "s": 60 } } },
+
+    { "id": "demo-lr-tv", "name": "Living Room TV", "kind": "TV", "room": "Living Room",
+      "manufacturer": "Demo Screens", "model": "Streaming TV 55",
+      "capabilities": [
+        { "type": "POWER" }, { "type": "VOLUME" }, { "type": "MUTE" },
+        { "type": "APP_LAUNCH", "options": { "apps": ["Netflix", "YouTube", "Prime Video", "Disney+"] } } ],
+      "state": { "POWER": true, "VOLUME": 18, "MUTE": false } },
+
+    { "id": "demo-k-ceiling", "name": "Kitchen Ceiling", "kind": "SWITCH", "room": "Kitchen",
+      "manufacturer": "Demo Switches", "model": "On/Off Wall Switch",
+      "capabilities": [ { "type": "SWITCH" } ],
+      "state": { "SWITCH": true } },
+
+    { "id": "demo-k-counter", "name": "Counter Lights", "kind": "LIGHT", "room": "Kitchen",
+      "manufacturer": "Demo Lighting Co.", "model": "Under-cabinet Strip",
+      "capabilities": [ { "type": "POWER" }, { "type": "BRIGHTNESS" } ],
+      "state": { "POWER": false, "BRIGHTNESS": 100 } },
+
+    { "id": "demo-br-lights", "name": "Bedroom Lights", "kind": "LIGHT", "room": "Bedroom",
+      "manufacturer": "Demo Lighting Co.", "model": "Smart Dimmer",
+      "capabilities": [ { "type": "POWER" }, { "type": "BRIGHTNESS" } ],
+      "state": { "POWER": false, "BRIGHTNESS": 25 } },
+
+    { "id": "demo-br-tv", "name": "Bedroom TV", "kind": "TV", "room": "Bedroom",
+      "manufacturer": "Demo Screens", "model": "Streaming TV 43",
+      "capabilities": [
+        { "type": "POWER" }, { "type": "VOLUME" }, { "type": "MUTE" },
+        { "type": "APP_LAUNCH", "options": { "apps": ["Netflix", "YouTube", "Hulu"] } } ],
+      "state": { "POWER": false, "VOLUME": 12, "MUTE": false } },
+
+    { "id": "demo-fd-doorbell", "name": "Front Door", "kind": "DOORBELL", "room": "Front Door",
+      "manufacturer": "Demo Security", "model": "Video Doorbell",
+      "capabilities": [ { "type": "CAMERA_LIVE" }, { "type": "CAMERA_EVENT" } ],
+      "state": { "CAMERA_EVENT": { "last": "motion", "minutes_ago": 14 } } },
+
+    { "id": "demo-by-camera", "name": "Backyard Camera", "kind": "CAMERA", "room": "Backyard",
+      "manufacturer": "Demo Security", "model": "Outdoor Camera",
+      "capabilities": [ { "type": "CAMERA_LIVE" }, { "type": "CAMERA_EVENT" } ],
+      "state": { "CAMERA_EVENT": { "last": "person", "minutes_ago": 42 } } },
+
+    { "id": "demo-fd-lock", "name": "Front Door Lock", "kind": "LOCK", "room": "Front Door",
+      "manufacturer": "Demo Security", "model": "Smart Deadbolt",
+      "capabilities": [ { "type": "LOCK" } ],
+      "state": { "LOCK": "LOCKED" } },
+
+    { "id": "demo-lr-thermostat", "name": "Thermostat", "kind": "THERMOSTAT", "room": "Living Room",
+      "manufacturer": "Demo Climate", "model": "Smart Thermostat",
+      "capabilities": [ { "type": "THERMOSTAT", "options": { "modes": ["OFF", "HEAT", "COOL", "AUTO"], "min_c": 10, "max_c": 30 } } ],
+      "state": { "THERMOSTAT": { "mode": "HEAT", "setpoint_c": 20.5 } } },
+
+    { "id": "demo-net-router", "name": "Internet Router", "kind": "NETWORK", "room": null,
+      "manufacturer": "Demo Networks", "model": "Wi-Fi Router",
+      "capabilities": [], "state": {} },
+
+    { "id": "demo-unknown-tv", "name": "TV (unnamed)", "kind": "TV", "room": null,
+      "_why": "A device the hub can see but the owner may not recognise — exercises NOT MINE.",
+      "manufacturer": "Unknown", "model": null,
+      "capabilities": [ { "type": "POWER" } ], "state": { "POWER": false } },
+
+    { "id": "demo-printer", "name": "Printer", "kind": "OTHER", "room": null,
+      "_why": "Real but not worth controlling — exercises IGNORE.",
+      "manufacturer": "Demo Office", "model": "Inkjet",
+      "capabilities": [], "state": {} }
+  ]
+}

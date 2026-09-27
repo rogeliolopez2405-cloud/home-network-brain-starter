@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# One-screen status: service, container health, anonymous /api/health.
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+echo "service:   $(systemctl is-active hnb.service 2>/dev/null || true) (enabled: $(systemctl is-enabled hnb.service 2>/dev/null || true))"
+echo "container: $(hub_health || echo 'not running')"
+echo "backups:   $(ls -1 "$HNB_ROOT/backups" 2>/dev/null | grep -c '^hnb-backup-' || true) kept, newest $(ls -1t "$HNB_ROOT/backups" 2>/dev/null | grep '^hnb-backup-' | head -1)"
+echo "timer:     $(systemctl list-timers hnb-backup.timer --no-legend 2>/dev/null | awk '{print $1, $2, $3}')"
+if hub_running; then
+  compose exec -T hub python -c 'import json,urllib.request;print("health:   ", json.load(urllib.request.urlopen("http://127.0.0.1:8780/api/health", timeout=4)))'
+fi

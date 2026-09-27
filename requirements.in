@@ -1,0 +1,5 @@
+fastapi==0.141.1
+uvicorn==0.54.0
+argon2-cffi==25.1.0
+pynacl==1.6.2
+websockets==17.1

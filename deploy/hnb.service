@@ -1,0 +1,18 @@
+[Unit]
+Description=Home Network BRAIN Starter
+Documentation=file:///opt/hnb/INSTALL.md
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/hnb
+ExecStart=/usr/bin/docker compose --env-file /etc/hnb/hnb.env -f /opt/hnb/deploy/compose.yaml up -d --no-build --remove-orphans
+ExecStop=/usr/bin/docker compose --env-file /etc/hnb/hnb.env -f /opt/hnb/deploy/compose.yaml stop
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

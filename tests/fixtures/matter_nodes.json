@@ -1,0 +1,66 @@
+{
+  "_about": "Fictional Matter nodes in the matter-server node shape (attributes keyed endpoint/cluster/attribute). No real device, vendor account or network detail.",
+  "color_light": {
+    "node_id": 5, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/29/0": [{"0": 22, "1": 1}], "0/29/1": [29, 31, 40, 48, 49, 51, 60, 62, 63], "0/29/3": [1],
+      "0/40/1": "Example Lighting", "0/40/3": "Color Bulb A19", "0/40/5": "Living Room Lamp", "0/40/18": "UID-EXAMPLE-0005",
+      "1/29/0": [{"0": 269, "1": 1}], "1/29/1": [3, 4, 5, 6, 8, 29, 768],
+      "1/6/0": true,
+      "1/8/0": 127, "1/8/2": 1, "1/8/3": 254,
+      "1/768/0": 85, "1/768/1": 203, "1/768/7": 250, "1/768/8": 0,
+      "1/768/65532": 31, "1/768/16394": 31, "1/768/16395": 153, "1/768/16396": 370
+    }
+  },
+  "ct_light_named_structs": {
+    "node_id": 6, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/40/1": "Example Lighting", "0/40/3": "Tunable White Downlight",
+      "1/29/0": [{"deviceType": 268, "revision": 2}], "1/29/1": [3, 4, 6, 8, 29, 768],
+      "1/6/0": false, "1/8/0": 254,
+      "1/768/7": 370, "1/768/65532": 16, "1/768/16395": 153, "1/768/16396": 454
+    }
+  },
+  "plug": {
+    "node_id": 7, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/40/1": "Example Power", "0/40/3": "Smart Plug Mini", "0/40/18": "UID-EXAMPLE-0007",
+      "1/29/0": [{"0": 266, "1": 1}], "1/29/1": [3, 4, 6, 29],
+      "1/6/0": false
+    }
+  },
+  "two_gang_switch": {
+    "node_id": 9, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/40/1": "Example Controls", "0/40/3": "In-Wall Switch 2-Gang", "0/40/5": "Kitchen Switch",
+      "1/29/0": [{"0": 256, "1": 1}], "1/29/1": [3, 4, 6, 29], "1/6/0": true,
+      "2/29/0": [{"0": 256, "1": 1}], "2/29/1": [3, 4, 6, 29], "2/6/0": false
+    }
+  },
+  "dimmer_switch_with_server": {
+    "node_id": 10, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/40/1": "Example Controls", "0/40/3": "Wall Dimmer",
+      "1/29/0": [{"0": 260, "1": 1}], "1/29/1": [3, 4, 6, 8, 29], "1/6/0": true, "1/8/0": 200
+    }
+  },
+  "bridge": {
+    "node_id": 11, "available": true, "is_bridge": true,
+    "attributes": {
+      "0/40/1": "Example Bridges", "0/40/3": "Hub Bridge",
+      "1/29/0": [{"0": 14, "1": 1}], "1/29/1": [29], "1/29/3": [2, 3],
+      "2/29/0": [{"0": 257, "1": 1}, {"0": 19, "1": 1}], "2/29/1": [3, 4, 6, 8, 29, 57],
+      "2/6/0": true, "2/8/0": 64, "2/57/5": "Porch Light", "2/57/1": "Example Legacy", "2/57/3": "Zigbee Dimmer",
+      "2/57/18": "UID-BRIDGED-0002",
+      "3/29/0": [{"0": 266, "1": 1}, {"0": 19, "1": 1}], "3/29/1": [3, 4, 6, 29, 57],
+      "3/6/0": false, "3/57/3": "Legacy Plug"
+    }
+  },
+  "sensor_only": {
+    "node_id": 12, "available": true, "is_bridge": false,
+    "attributes": {
+      "0/40/1": "Example Sensing", "0/40/3": "Contact Sensor",
+      "1/29/0": [{"0": 21, "1": 1}], "1/29/1": [3, 29, 69], "1/69/0": true
+    }
+  }
+}

@@ -1,0 +1,38 @@
+# ── Never in git: runtime state, secrets, local tooling ──
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+
+# Runtime data a real install creates (DB, vault, backups, logs)
+/data/
+/var/
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+hnb.lock
+*.key
+*.pem
+*.p12
+backups/
+logs/
+
+# Env files — only the committed example is allowed
+.env
+.env.*
+!.env.example
+
+# Agent / editor state
+.claude/
+.remember/
+.idea/
+.vscode/
+
+# Browser automation output
+.playwright-mcp/

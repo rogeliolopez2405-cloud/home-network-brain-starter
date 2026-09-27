@@ -1,0 +1,8 @@
+# VM ACCEPTANCE ONLY — never used by install.sh or systemd.
+# The CI virtual light (matter.js) carries a Matter *test* certificate, which the
+# production trust policy correctly refuses. This override lets the test run
+# accept test certificates; production (deploy/compose.yaml) stays strict.
+services:
+  matter:
+    environment:
+      ENABLE_TEST_NET_DCL: "true"

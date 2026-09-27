@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Run a hub command, e.g.:  sudo bin/hnb list-backups   sudo bin/hnb check
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+hnb_cli "$@"

@@ -1,0 +1,1327 @@
+{
+  "components": {
+    "schemas": {
+      "ActionBody": {
+        "properties": {
+          "capability": {
+            "maxLength": 40,
+            "title": "Capability",
+            "type": "string"
+          },
+          "confirm": {
+            "default": false,
+            "title": "Confirm",
+            "type": "boolean"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "required": [
+          "capability"
+        ],
+        "title": "ActionBody",
+        "type": "object"
+      },
+      "BootstrapBody": {
+        "properties": {
+          "house_name": {
+            "default": "My Home",
+            "maxLength": 120,
+            "title": "House Name",
+            "type": "string"
+          },
+          "passphrase": {
+            "maxLength": 1024,
+            "title": "Passphrase",
+            "type": "string"
+          },
+          "setup_code": {
+            "maxLength": 64,
+            "title": "Setup Code",
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 64,
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "setup_code",
+          "username",
+          "passphrase"
+        ],
+        "title": "BootstrapBody",
+        "type": "object"
+      },
+      "DevicePatch": {
+        "properties": {
+          "clear_room": {
+            "default": false,
+            "title": "Clear Room",
+            "type": "boolean"
+          },
+          "favorite": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Favorite"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "room_id": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Room Id"
+          },
+          "room_name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Room Name"
+          }
+        },
+        "title": "DevicePatch",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "LoginBody": {
+        "properties": {
+          "passphrase": {
+            "maxLength": 1024,
+            "title": "Passphrase",
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 64,
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "passphrase"
+        ],
+        "title": "LoginBody",
+        "type": "object"
+      },
+      "PairBody": {
+        "properties": {
+          "code": {
+            "description": "The device's setup code (e.g. Matter 11-digit code).",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "PairBody",
+        "type": "object"
+      },
+      "ProviderBody": {
+        "properties": {
+          "provider_id": {
+            "description": "An installed provider id, e.g. `demo`, `matter`.",
+            "maxLength": 40,
+            "title": "Provider Id",
+            "type": "string"
+          },
+          "secrets": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Values for the provider's `secrets` fields. Stored encrypted; never returned.",
+            "title": "Secrets",
+            "type": "object"
+          },
+          "settings": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Values for the provider's `settings` fields.",
+            "title": "Settings",
+            "type": "object"
+          }
+        },
+        "required": [
+          "provider_id"
+        ],
+        "title": "ProviderBody",
+        "type": "object"
+      },
+      "ProviderSettingsBody": {
+        "properties": {
+          "secrets": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Replacement credentials; blank keeps the stored one.",
+            "title": "Secrets",
+            "type": "object"
+          },
+          "settings": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Changed settings (merged into the stored ones).",
+            "title": "Settings",
+            "type": "object"
+          }
+        },
+        "title": "ProviderSettingsBody",
+        "type": "object"
+      },
+      "ReviewBody": {
+        "properties": {
+          "status": {
+            "enum": [
+              "MINE",
+              "NOT_MINE",
+              "IGNORED"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ReviewBody",
+        "type": "object"
+      },
+      "RoomBody": {
+        "properties": {
+          "name": {
+            "maxLength": 120,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "RoomBody",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "The Home Network BRAIN Starter API \u2014 the same API the Home Hub uses.\n\n**Auth.** Sign in with `POST /api/auth/login`; the session is an HttpOnly cookie.\nEvery write (POST/PATCH/DELETE) also needs the session's CSRF token in the\n`X-CSRF-Token` header (returned by login and `GET /api/session`).\n\n**Network.** The hub answers only callers on the home network, loopback or a\nprivate overlay; others get 403.\n\n**Errors.** Failures return `{\"error\": \"<plain-English reason>\"}` with a 4xx/5xx\nstatus. Device commands report truthful outcomes (see `POST /api/devices/{id}/actions`).\n",
+    "title": "Home Network BRAIN Starter",
+    "version": "0.2.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/audit": {
+      "get": {
+        "description": "Page with `before=<seq>`; filter with `target=<device/room/provider id>`.",
+        "operationId": "audit_api_audit_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "before",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Before"
+            }
+          },
+          {
+            "in": "query",
+            "name": "target",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Append-only history, newest first",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/api/auth/bootstrap": {
+      "post": {
+        "description": "Only while no owner exists, only from the home network, only with the\none-time code from `sudo /opt/hnb/bin/setup-code`. Signs the owner in.",
+        "operationId": "bootstrap_api_auth_bootstrap_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BootstrapBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create the first owner (setup code required)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "login_api_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Sign in",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "logout_api_auth_logout_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Sign out",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/backups": {
+      "get": {
+        "operationId": "backups_api_backups_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List backups on the hub",
+        "tags": [
+          "backups"
+        ]
+      },
+      "post": {
+        "operationId": "create_backup_api_backups_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Back up now (verified; the vault key is never included)",
+        "tags": [
+          "backups"
+        ]
+      }
+    },
+    "/api/backups/{name}/verify": {
+      "post": {
+        "description": "Restoring replaces the database, so it isn't an API call: stop-and-restore\nruns on the hub with `sudo bin/restore <file>` (see BACKUP_RESTORE.md).",
+        "operationId": "verify_backup_api_backups__name__verify_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "title": "Name",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Re-verify a backup archive",
+        "tags": [
+          "backups"
+        ]
+      }
+    },
+    "/api/capabilities": {
+      "get": {
+        "operationId": "capabilities_api_capabilities_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "The capability vocabulary and value formats",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/devices": {
+      "get": {
+        "operationId": "devices_api_devices_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Every device the hub knows, with review status",
+        "tags": [
+          "devices"
+        ]
+      }
+    },
+    "/api/devices/{device_id}": {
+      "get": {
+        "operationId": "device_api_devices__device_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "device_id",
+            "required": true,
+            "schema": {
+              "title": "Device Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "One device: capabilities, state, connections",
+        "tags": [
+          "devices"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_device_api_devices__device_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "device_id",
+            "required": true,
+            "schema": {
+              "title": "Device Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DevicePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Rename, move to a room, favorite",
+        "tags": [
+          "devices"
+        ]
+      }
+    },
+    "/api/devices/{device_id}/actions": {
+      "post": {
+        "description": "Outcome is truthful: CONFIRMED (device read back the value), ACCEPTED\n(sent; not read back), FAILED (provider error or no answer \u2014 the device\nmay or may not have changed), REJECTED (refused before any provider call:\nnot claimed, unsupported capability, bad value, needs `confirm`). REJECTED\nanswers HTTP 422; the others 200.",
+        "operationId": "action_api_devices__device_id__actions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "device_id",
+            "required": true,
+            "schema": {
+              "title": "Device Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Control a device",
+        "tags": [
+          "actions"
+        ]
+      }
+    },
+    "/api/devices/{device_id}/history": {
+      "get": {
+        "operationId": "device_history_api_devices__device_id__history_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "device_id",
+            "required": true,
+            "schema": {
+              "title": "Device Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Audit entries for one device",
+        "tags": [
+          "devices"
+        ]
+      }
+    },
+    "/api/devices/{device_id}/review": {
+      "post": {
+        "operationId": "review_api_devices__device_id__review_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "device_id",
+            "required": true,
+            "schema": {
+              "title": "Device Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mark a device MINE / NOT_MINE / IGNORED",
+        "tags": [
+          "devices"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "description": "Anonymous callers (Docker, the installer) get `status`, `version`,\n`setup_required`. Signed-in owners also get `components`: api, database,\nvault, providers, backup, storage, poller. Never contains secrets.",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health (minimal when signed out, detailed when signed in)",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/home": {
+      "get": {
+        "description": "Status, rooms, sections (favorites, lights, entertainment, cameras,\nnetwork, more), claimed devices with their controls, and system status.\nNever calls a provider: a slow provider can't slow the Hub.",
+        "operationId": "home_api_home_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Everything the Home Hub shows, in one payload",
+        "tags": [
+          "home"
+        ]
+      }
+    },
+    "/api/openapi.json": {
+      "get": {
+        "operationId": "openapi_schema_api_openapi_json_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "This API as OpenAPI 3 (owners only)",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/providers": {
+      "get": {
+        "description": "`available` lists installed provider modules (connectable) and known\nproviders whose module isn't installed (`installed: false`).",
+        "operationId": "providers_api_providers_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Connected services, plus everything that could be added",
+        "tags": [
+          "providers"
+        ]
+      },
+      "post": {
+        "operationId": "connect_provider_api_providers_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProviderBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Connect a service",
+        "tags": [
+          "providers"
+        ]
+      }
+    },
+    "/api/providers/{provider_id}": {
+      "patch": {
+        "operationId": "provider_settings_api_providers__provider_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "provider_id",
+            "required": true,
+            "schema": {
+              "title": "Provider Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProviderSettingsBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Change a service's settings or credentials",
+        "tags": [
+          "providers"
+        ]
+      }
+    },
+    "/api/providers/{provider_id}/discover": {
+      "post": {
+        "description": "New devices arrive UNREVIEWED; known devices keep the owner's choices.",
+        "operationId": "discover_api_providers__provider_id__discover_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "provider_id",
+            "required": true,
+            "schema": {
+              "title": "Provider Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Look for devices now",
+        "tags": [
+          "discovery"
+        ]
+      }
+    },
+    "/api/providers/{provider_id}/pair": {
+      "post": {
+        "description": "Only for providers with `supports_pairing`. The code is never stored or\nlogged. Added devices start UNREVIEWED.",
+        "operationId": "pair_api_providers__provider_id__pair_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "provider_id",
+            "required": true,
+            "schema": {
+              "title": "Provider Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PairBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Add a device with a setup code",
+        "tags": [
+          "discovery"
+        ]
+      }
+    },
+    "/api/rooms": {
+      "get": {
+        "operationId": "rooms_api_rooms_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List rooms",
+        "tags": [
+          "rooms"
+        ]
+      },
+      "post": {
+        "operationId": "create_room_api_rooms_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create a room (returns the existing one if the name is taken)",
+        "tags": [
+          "rooms"
+        ]
+      }
+    },
+    "/api/rooms/{room_id}": {
+      "delete": {
+        "operationId": "delete_room_api_rooms__room_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "room_id",
+            "required": true,
+            "schema": {
+              "title": "Room Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete a room (its devices keep working, unassigned)",
+        "tags": [
+          "rooms"
+        ]
+      },
+      "patch": {
+        "operationId": "rename_room_api_rooms__room_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "room_id",
+            "required": true,
+            "schema": {
+              "title": "Room Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Rename a room",
+        "tags": [
+          "rooms"
+        ]
+      }
+    },
+    "/api/session": {
+      "get": {
+        "operationId": "session_info_api_session_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Who am I, is setup open, is setup finished",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/setup/complete": {
+      "post": {
+        "operationId": "setup_complete_api_setup_complete_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Mark the first-run wizard finished",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/system": {
+      "get": {
+        "operationId": "system_api_system_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Version, network, counts, installed provider modules",
+        "tags": [
+          "system"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "First owner, sign-in, sessions, setup completion.",
+      "name": "auth"
+    },
+    {
+      "description": "The Home Hub payload.",
+      "name": "home"
+    },
+    {
+      "description": "Rooms the owner defines.",
+      "name": "rooms"
+    },
+    {
+      "description": "Devices, review decisions, per-device history.",
+      "name": "devices"
+    },
+    {
+      "description": "Controlling devices, with verified outcomes.",
+      "name": "actions"
+    },
+    {
+      "description": "Connecting services (provider modules) and their settings.",
+      "name": "providers"
+    },
+    {
+      "description": "Finding and adding devices.",
+      "name": "discovery"
+    },
+    {
+      "description": "The append-only history.",
+      "name": "audit"
+    },
+    {
+      "description": "Verified backups (restore runs on the hub).",
+      "name": "backups"
+    },
+    {
+      "description": "Health, system facts, capability vocabulary, this schema.",
+      "name": "system"
+    }
+  ]
+}

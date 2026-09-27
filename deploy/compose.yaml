@@ -1,0 +1,86 @@
+# Home Network BRAIN Starter — Docker Compose deployment.
+# Run through systemd (hnb.service) or bin/* — they pass --env-file /etc/hnb/hnb.env.
+#
+# Both services use host networking. Matter needs it (IPv6 link-local, mDNS,
+# UDP to devices — bridge networking does not work for Matter), and the Matter
+# server's API is unauthenticated, so it listens on 127.0.0.1 ONLY; the hub
+# shares the host network to reach it there. The hub's own port is guarded in
+# the app: it refuses callers outside the home network.
+name: hnb
+
+services:
+  hub:
+    image: hnb-starter:${HNB_VERSION:?set by install.sh}
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    user: "${HNB_UID:?}:${HNB_GID:?}"
+    network_mode: host
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 128
+    cpus: 1.5
+    stop_grace_period: 20s
+    depends_on: [matter]
+    environment:
+      HNB_HOST: "${HNB_BIND:-0.0.0.0}"
+      HNB_PORT: "${HNB_PORT:-8780}"
+      HNB_ENABLE_DEMO: "${HNB_ENABLE_DEMO:-true}"
+      HNB_CONFIG_FILE: /etc/hnb/hnb.env
+      HNB_POLL_INTERVAL_S: "${HNB_POLL_INTERVAL_S:-30}"
+      HNB_BACKUP_KEEP: "${HNB_BACKUP_KEEP:-14}"
+      TZ: "${TZ:-UTC}"
+    volumes:
+      - ${HNB_ROOT:-/var/lib/hnb}/data:/var/lib/hnb/data
+      - ${HNB_ROOT:-/var/lib/hnb}/backups:/var/lib/hnb/backups
+      - ${HNB_ROOT:-/var/lib/hnb}/logs:/var/lib/hnb/logs
+      - /etc/hnb/hnb.env:/etc/hnb/hnb.env:ro
+    secrets:
+      - vault_key
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Matter controller (matterjs-server v1.4.0, digest-pinned). Its data volume
+  # holds the hub's Matter fabric credentials: kept out of ordinary backups,
+  # like the vault key (see BACKUP_RESTORE.md).
+  matter:
+    image: ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236
+    user: "${HNB_UID:?}:${HNB_GID:?}"
+    network_mode: host
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 256
+    environment:
+      LISTEN_ADDRESS: 127.0.0.1          # the API has no authentication: loopback only
+      PORT: "5580"
+      STORAGE_PATH: /data
+      DISABLE_DASHBOARD: "true"
+      PRIMARY_INTERFACE: "${HNB_MATTER_INTERFACE:-}"
+      LOG_LEVEL: info
+    volumes:
+      - ${HNB_ROOT:-/var/lib/hnb}/matter:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+secrets:
+  vault_key:
+    file: ${HNB_ROOT:-/var/lib/hnb}/secrets/vault.key

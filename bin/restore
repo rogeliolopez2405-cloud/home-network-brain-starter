@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Restore a backup:  sudo bin/restore hnb-backup-<UTC>.tar.gz   (or a path)
+# Stops the hub, verifies the archive, snapshots the current database,
+# restores, starts the hub and waits for it to be healthy.
+set -euo pipefail
+. "$(dirname "$(readlink -f "$0")")/_lib.sh"
+need_root "$@"
+[ $# -eq 1 ] || { echo "usage: sudo $0 <backup file>"; echo "available:"; ls -1t "$HNB_ROOT/backups" | grep '^hnb-backup-' | head -10; exit 2; }
+src="$1"; name="$(basename "$src")"
+if [ -f "$src" ] && [ "$(readlink -f "$src")" != "$(readlink -f "$HNB_ROOT/backups/$name")" ]; then
+  install -m 0600 -o hnb -g hnb "$src" "$HNB_ROOT/backups/$name"      # bring outside archives in
+fi
+[ -f "$HNB_ROOT/backups/$name" ] || { echo "no backup named $name in $HNB_ROOT/backups" >&2; exit 2; }
+echo "==> Verifying $name"
+hnb_cli verify-backup "/var/lib/hnb/backups/$name" >/dev/null
+echo "==> Stopping the hub"
+systemctl stop hnb.service
+echo "==> Restoring"
+compose run --rm --no-deps -T hub restore "/var/lib/hnb/backups/$name"
+echo "==> Starting the hub"
+systemctl start hnb.service
+wait_healthy 180 && echo "Restored $name. The hub is healthy."

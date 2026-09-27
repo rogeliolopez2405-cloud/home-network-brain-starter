@@ -1,0 +1,35 @@
+[project]
+name = "home-network-brain-starter"
+version = "0.2.0"
+description = "Installable, provider-independent home hub. One app for every room, whatever runs the device."
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Rogelio Lopez" }]
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn>=0.30",
+  "argon2-cffi>=23.1",
+  "pynacl>=1.5",
+  "websockets>=14",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27"]
+# Real-browser UI tests (tests/test_web_browser.py); uses the system Chrome if present.
+browser = ["playwright>=1.47"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["hnb*"]
+
+[tool.setuptools.package-data]
+"hnb.providers.demo" = ["fixtures/*.json"]
+"hnb.store.migrations" = ["*.sql"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "examples", "plugins"]
+addopts = "-q"
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]

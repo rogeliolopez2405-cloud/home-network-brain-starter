@@ -1,0 +1,2 @@
+# Media files explicitly approved for the repository, one repo-relative path per line.
+# Anything else (photos, videos, screenshots) fails the isolation guard.

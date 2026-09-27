@@ -1,0 +1,2 @@
+room,device_type,brand,model,controlled_by,in_alexa,matter_logo_or_code,radio,echo_model_if_echo,notes
+Living Room,light switch,,,Alexa,yes,unknown,unknown,,

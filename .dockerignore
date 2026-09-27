@@ -1,0 +1,8 @@
+# Only hnb/, web/ and requirements.lock are copied into the image.
+*
+!hnb/
+!web/
+!plugins/
+!requirements.lock
+**/__pycache__
+**/*.pyc

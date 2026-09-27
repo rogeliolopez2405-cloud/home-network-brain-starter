@@ -1,0 +1,7 @@
+# Target host is Linux: keep LF in the repo on every platform.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.woff2 binary
+*.db binary
+*.tar.gz binary
